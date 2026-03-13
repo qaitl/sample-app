@@ -1,0 +1,7 @@
+<ul id="todo-list" class="todo-list">
+  {% for todo in todos %}
+    {% include "partials/todo_item.html" %}
+  {% else %}
+  <li class="todo-list__empty">Aucune tâche pour l'instant.</li>
+  {% endfor %}
+</ul>

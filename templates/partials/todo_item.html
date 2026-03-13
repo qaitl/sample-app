@@ -1,0 +1,28 @@
+<li id="todo-{{ todo.id }}" class="todo-item {% if todo.completed %}todo-item--done{% endif %}">
+  <button
+    class="todo-item__check {% if todo.completed %}todo-item__check--done{% endif %}"
+    {% if not todo.completed %}
+    hx-patch="/todos/{{ todo.id }}/complete"
+    hx-target="#todo-{{ todo.id }}"
+    hx-swap="outerHTML"
+    title="Marquer comme terminé"
+    {% else %}
+    disabled
+    title="Déjà terminé"
+    {% endif %}
+  >
+    {% if todo.completed %}✓{% else %}○{% endif %}
+  </button>
+  <span class="todo-item__title">{{ todo.title }}</span>
+  {% if todo.description %}
+  <span class="todo-item__desc">{{ todo.description }}</span>
+  {% endif %}
+  <button
+    class="todo-item__delete btn btn--danger"
+    hx-delete="/todos/{{ todo.id }}"
+    hx-target="#todo-{{ todo.id }}"
+    hx-swap="outerHTML"
+    hx-confirm="Supprimer cette tâche ?"
+    title="Supprimer"
+  >✕</button>
+</li>

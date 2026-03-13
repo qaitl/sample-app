@@ -1,0 +1,24 @@
+services:
+  app:
+    build: .
+    image: sample-app:latest
+    container_name: sample-app
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_APP__LOG_LEVEL=INFO
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+    networks:
+      - todo-app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  todo-app-network:
+    name: todo-app-network

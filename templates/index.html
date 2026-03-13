@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Todo App — Liste{% endblock %}
+
+{% block content %}
+<section class="todo-container">
+  <form
+    hx-post="/todos"
+    hx-target="#todo-list"
+    hx-swap="outerHTML"
+    hx-on::after-request="this.reset()"
+    class="todo-form"
+  >
+    <input
+      type="text"
+      name="title"
+      placeholder="Nouvelle tâche..."
+      required
+      autocomplete="off"
+      class="todo-input"
+    />
+    <input
+      type="text"
+      name="description"
+      placeholder="Description (optionnel)"
+      class="todo-input todo-input--desc"
+    />
+    <button type="submit" class="btn btn--primary">Ajouter</button>
+  </form>
+
+  {% include "partials/todo_list.html" %}
+</section>
+{% endblock %}
