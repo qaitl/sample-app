@@ -59,6 +59,25 @@ services:
       - todo-app-network
     restart: unless-stopped
 
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.144.0
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./monitoring/otel-collector/otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
+    ports:
+      - "4317:4317"   # OTLP gRPC — exposé au host pour le CLI Claude Code
+      - "4318:4318"   # OTLP HTTP
+    depends_on:
+      - loki
+    networks:
+      - todo-app-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 640M
+
 volumes:
   prometheus-data:
   loki-data:
