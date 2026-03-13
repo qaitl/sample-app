@@ -78,6 +78,21 @@ services:
         limits:
           memory: 640M
 
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.51.0
+    container_name: cadvisor
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    ports:
+      - "8080:8080"
+    networks:
+      - todo-app-network
+    restart: unless-stopped
+
 volumes:
   prometheus-data:
   loki-data:
