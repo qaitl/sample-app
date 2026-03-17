@@ -6,6 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
+  ruff:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: astral-sh/ruff-action@v3
+        with:
+          src: "./src"
   hello:
     runs-on: ubuntu-24.04
     steps:
