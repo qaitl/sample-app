@@ -1,4 +1,4 @@
-name: Hello World
+name: Test Pipeline
 
 on:
   push:
@@ -9,10 +9,12 @@ jobs:
   ruff:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4  
-      - uses: astral-sh/ruff-action@v3
+      # npx pin-github-action  .github/workflows/hello.yml
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4  
+      - uses: astral-sh/ruff-action@4919ec5cf1f49eff0871dbcea0da843445b837e6 # v3
         with:
           src: "./src"
+          # remarque: possible d'ajouter un fix / format puis autocommit, mais pas spécialement reconnandé. pre-commit est préférable, ou alors on pull requesy
   hello:
     runs-on: ubuntu-24.04
     steps:

@@ -54,9 +54,13 @@ async def complete_todo_htmx(
 ) -> HTMLResponse:
     todo = await service.complete_todo(todo_id)
     if todo is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found"
+        )
     logger.info("todo_completed", todo_id=str(todo_id))
-    return templates.TemplateResponse(request, "partials/todo_item.html", {"todo": todo})
+    return templates.TemplateResponse(
+        request, "partials/todo_item.html", {"todo": todo}
+    )
 
 
 @router.delete("/todos/{todo_id}", response_class=HTMLResponse)
@@ -67,7 +71,9 @@ async def delete_todo_htmx(
 ) -> HTMLResponse:
     deleted = await service.delete_todo(todo_id)
     if not deleted:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found"
+        )
     logger.info("todo_deleted", todo_id=str(todo_id))
     return HTMLResponse(content="", status_code=status.HTTP_200_OK)
 
@@ -103,7 +109,9 @@ async def get_todo_json(
 ) -> TodoResponse:
     todo = await service.get_by_id(todo_id)
     if todo is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found"
+        )
     return todo
 
 
@@ -115,7 +123,9 @@ async def update_todo_json(
 ) -> TodoResponse:
     todo = await service.update_todo(todo_id, data)
     if todo is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found"
+        )
     return todo
 
 
@@ -126,4 +136,6 @@ async def delete_todo_json(
 ) -> None:
     deleted = await service.delete_todo(todo_id)
     if not deleted:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found"
+        )

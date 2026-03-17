@@ -19,7 +19,9 @@ class AppSettings(BaseModel):
     port: int = 8000
     debug: bool = False
     log_level: str = "INFO"
-    loki_url: str = ""   # ex: "http://localhost:3100/loki/api/v1/push" — vide = désactivé
+    loki_url: str = (
+        ""  # ex: "http://localhost:3100/loki/api/v1/push" — vide = désactivé
+    )
 
 
 class StorageSettings(BaseModel):

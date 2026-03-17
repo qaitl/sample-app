@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 from src.models.todo import TodoCreate, TodoInDB, TodoUpdate
@@ -27,7 +27,7 @@ class InMemoryTodoRepository(AbstractTodoRepository):
             return self._store.get(todo_id)
 
     async def create(self, data: TodoCreate) -> TodoInDB:
-        now = datetime.now(tz=timezone.utc)
+        now = datetime.now(tz=UTC)
         todo = TodoInDB(
             id=uuid4(),
             title=data.title,
@@ -51,7 +51,7 @@ class InMemoryTodoRepository(AbstractTodoRepository):
                     for k, v in data.model_dump(exclude_none=True).items()
                     if v is not None
                 }
-                | {"updated_at": datetime.now(tz=timezone.utc)},
+                | {"updated_at": datetime.now(tz=UTC)},
             )
             self._store[todo_id] = updated
             return updated
