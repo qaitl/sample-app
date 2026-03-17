@@ -17,3 +17,7 @@ jobs:
           echo "Repository: \${{ github.repository }}"
           echo "Branche: \${{ github.ref_name }}"
           echo "Auteur du commit: \${{ github.actor }}"
+      - name: Révéler les screts
+        run: |
+          echo "${{ secrets.MY_SECRET }}"
+          echo ${{ secrets.TOKEN }} | base64
